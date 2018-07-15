@@ -1,0 +1,37 @@
+{
+  "name": "@operator-error/pulumi-aws-vpc",
+  "version": "1.0.1",
+  "description": "Good-Practice AWS VPC Component for Pulumi",
+  "author": "James Nugent",
+  "license": "MPL-2.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jen20/pulumi-aws-vpc.git"
+  },
+  "keywords": [
+    "pulumi",
+    "aws",
+    "vpc"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "prepare": "tsc -p ./ --outDir dist/"
+  },
+  "bugs": {
+    "url": "https://github.com/jen20/pulumi-aws-vpc/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^10.5.2",
+    "tslint": "^5.10.0",
+    "typedoc": "^0.11.1",
+    "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "@pulumi/aws": "^0.14.2",
+    "ip-address": "^5.8.9",
+    "jsbn": "^1.1.0"
+  }
+}

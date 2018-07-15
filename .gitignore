@@ -1,0 +1,11 @@
+.idea/
+*.iml
+/node_modules/
+yarn-error.log
+
+Pulumi.*.yaml
+
+*.pyc
+
+.pulumi/
+vendor/
