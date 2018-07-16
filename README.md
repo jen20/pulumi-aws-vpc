@@ -56,7 +56,7 @@ async function main(): Promise<VpcOutputs> {
     });
 }
 
-const outputs: VpcOutputs = main();
+const outputs = main();
 export const vpcId = outputs.then(o => o.vpcId);
 export const privateSubnetIds = outputs.then(o => o.privateSubnetIds);
 export const publicSubnetIds = outputs.then(o => o.publicSubnetIds);
