@@ -74,6 +74,10 @@ class Vpc extends pulumi_1.ComponentResource {
             else {
                 distributor = yield subnetDistributor_1.SubnetDistributor.perAz(inputs.baseCidr);
             }
+            // Find AZ names
+            let azNames = (yield aws.getAvailabilityZones({
+                state: "available",
+            })).names;
             // Public Subnets
             const publicSubnets = (yield distributor.publicSubnets()).map((cidr, index) => {
                 const subnetTags = Object.assign({
@@ -83,6 +87,7 @@ class Vpc extends pulumi_1.ComponentResource {
                     vpcId: vpc.id,
                     cidrBlock: cidr,
                     mapPublicIpOnLaunch: false,
+                    availabilityZone: azNames[index],
                     tags: subnetTags,
                 }, vpcParent);
             });
@@ -121,6 +126,7 @@ class Vpc extends pulumi_1.ComponentResource {
                     vpcId: vpc.id,
                     cidrBlock: cidr,
                     mapPublicIpOnLaunch: false,
+                    availabilityZone: azNames[index],
                     tags: subnetTags,
                 }, vpcParent);
             });

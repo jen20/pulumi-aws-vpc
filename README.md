@@ -14,6 +14,8 @@ flow logging can be enabled if desired.
 This package does not currently support entirely private VPCs (i.e. those without an internet gateway attached), though
 it is intended to support such designs in future.
 
+A [CHANGELOG](CHANGELOG.md) is maintained for this project.
+
 ## Usage
 
 ```typescript

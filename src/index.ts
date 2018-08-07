@@ -106,6 +106,11 @@ export class Vpc extends ComponentResource implements VpcOutputs {
             distributor = await SubnetDistributor.perAz(inputs.baseCidr);
         }
 
+        // Find AZ names
+        let azNames = (await aws.getAvailabilityZones({
+            state: "available",
+        })).names;
+
         // Public Subnets
         const publicSubnets = (await distributor.publicSubnets()).map((cidr, index) => {
             const subnetTags = Object.assign({
@@ -115,6 +120,7 @@ export class Vpc extends ComponentResource implements VpcOutputs {
                 vpcId: vpc.id,
                 cidrBlock: cidr,
                 mapPublicIpOnLaunch: false,
+                availabilityZone: azNames[index],
                 tags: subnetTags,
             }, vpcParent);
         });
@@ -159,6 +165,7 @@ export class Vpc extends ComponentResource implements VpcOutputs {
                 vpcId: vpc.id,
                 cidrBlock: cidr,
                 mapPublicIpOnLaunch: false,
+                availabilityZone: azNames[index],
                 tags: subnetTags,
             }, vpcParent);
         });
