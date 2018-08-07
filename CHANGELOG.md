@@ -7,9 +7,9 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ## [1.1.0] - 2017-08-07
-### Bug Fixes
+### Fixed
 
-- Subnets are now distributed across available AZs.
+- Subnets are now distributed across available AZs. [a64ec75]
 
 ## [1.0.3] - 2017-07-18
 
