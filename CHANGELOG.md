@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+
+- Only availability zones in the "available" state are considered in subnet calculations. [#5]
 
 ## [1.1.0] - 2017-08-07
 ### Fixed
