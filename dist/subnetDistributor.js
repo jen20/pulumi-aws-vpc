@@ -32,7 +32,7 @@ class SubnetDistributor {
     static perAz(baseCidr) {
         return __awaiter(this, void 0, void 0, function* () {
             const azCount = (yield aws.getAvailabilityZones({
-                state: "available"
+                state: "available",
             })).names.length;
             return new SubnetDistributor(baseCidr, azCount);
         });

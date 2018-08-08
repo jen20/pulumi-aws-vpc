@@ -26,7 +26,7 @@ export class SubnetDistributor {
      */
     public static async perAz(baseCidr: string): Promise<SubnetDistributor> {
         const azCount = (await aws.getAvailabilityZones({
-            state: "available"
+            state: "available",
         })).names.length;
 
         return new SubnetDistributor(baseCidr, azCount);
