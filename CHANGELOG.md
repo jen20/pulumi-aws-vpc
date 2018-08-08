@@ -8,6 +8,7 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - Only availability zones in the "available" state are considered in subnet calculations. [#5]
+- Public subnets now have `mapPublicIpOnLaunch` set to `true`. [#6]
 
 ## [1.1.0] - 2017-08-07
 ### Fixed
