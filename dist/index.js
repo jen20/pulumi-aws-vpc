@@ -86,7 +86,7 @@ class Vpc extends pulumi_1.ComponentResource {
                 return new aws.ec2.Subnet(`${baseName}-public-${index + 1}`, {
                     vpcId: vpc.id,
                     cidrBlock: cidr,
-                    mapPublicIpOnLaunch: false,
+                    mapPublicIpOnLaunch: true,
                     availabilityZone: azNames[index],
                     tags: subnetTags,
                 }, vpcParent);
