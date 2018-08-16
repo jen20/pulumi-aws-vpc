@@ -10,17 +10,9 @@ import * as aws from "@pulumi/aws";
 import { ComponentResource, Output, ResourceOptions } from "@pulumi/pulumi";
 import { SubnetDistributor } from "./subnetDistributor";
 
-/**
- * Tags is a dictionary object representing tags to be applied to
- * an AWS resource.
- */
-export interface Tags {
-    [name: string]: string;
-}
-
 export interface VpcInputs {
     description: string;
-    baseTags: Tags;
+    baseTags: aws.Tags;
 
     baseCidr: string;
     azCount: number | "PerAZ";
