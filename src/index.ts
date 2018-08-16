@@ -21,7 +21,7 @@ export interface VpcInputs {
     createDynamoDbEndpoint?: boolean;
     enableFlowLogs?: boolean;
 
-    zoneName: string;
+    zoneName?: string;
 }
 
 export interface VpcOutputs {
@@ -57,7 +57,7 @@ export class Vpc extends ComponentResource implements VpcOutputs {
         const vpcParent = {parent: vpc};
 
         // Private Hosted Zone
-        if (inputs.zoneName !== "") {
+        if (inputs.zoneName) {
             const privateZone = new aws.route53.Zone(`${baseName}-private-hosted-zone`, {
                 vpcId: vpc.id,
                 name: inputs.zoneName,

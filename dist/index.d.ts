@@ -8,7 +8,7 @@ export interface VpcInputs {
     createS3Endpoint?: boolean;
     createDynamoDbEndpoint?: boolean;
     enableFlowLogs?: boolean;
-    zoneName: string;
+    zoneName?: string;
 }
 export interface VpcOutputs {
     vpcId: Output<string>;

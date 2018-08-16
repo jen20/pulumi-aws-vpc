@@ -37,7 +37,7 @@ class Vpc extends pulumi_1.ComponentResource {
             instance.vpcId = vpc.id;
             const vpcParent = { parent: vpc };
             // Private Hosted Zone
-            if (inputs.zoneName !== "") {
+            if (inputs.zoneName) {
                 const privateZone = new aws.route53.Zone(`${baseName}-private-hosted-zone`, {
                     vpcId: vpc.id,
                     name: inputs.zoneName,
