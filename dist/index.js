@@ -37,7 +37,7 @@ class Vpc extends pulumi_1.ComponentResource {
             instance.vpcId = vpc.id;
             const vpcParent = { parent: vpc };
             // Private Hosted Zone
-            if (inputs.zoneName !== "") {
+            if (inputs.zoneName) {
                 const privateZone = new aws.route53.Zone(`${baseName}-private-hosted-zone`, {
                     vpcId: vpc.id,
                     name: inputs.zoneName,
@@ -192,19 +192,11 @@ class Vpc extends pulumi_1.ComponentResource {
                 const logGroup = new aws.cloudwatch.LogGroup(`${baseName}-vpc-flow-logs`, {
                     tags: logGroupTags,
                 }, vpcParent);
-                const assumeRolePolicy = {
-                    Version: "2012-10-17",
-                    Statement: [
-                        {
-                            Effect: "Allow",
-                            Principal: { Service: "vpc-flow-logs.amazonaws.com" },
-                            Action: "sts:AssumeRole",
-                        },
-                    ],
-                };
                 const flowLogsRole = new aws.iam.Role(`${baseName}-flow-logs-role`, {
                     description: `${inputs.description} Flow Logs`,
-                    assumeRolePolicy: JSON.stringify(assumeRolePolicy),
+                    assumeRolePolicy: JSON.stringify(aws.iam.assumeRolePolicyForPrincipal({
+                        Service: "vpc-flow-logs.amazonaws.com"
+                    })),
                 }, vpcParent);
                 const flowLogsRoleParent = { parent: flowLogsRole };
                 const flowLogsPolicy = {
@@ -226,7 +218,7 @@ class Vpc extends pulumi_1.ComponentResource {
                 new aws.iam.RolePolicy(`${baseName}-flow-log-policy`, {
                     name: "vpc-flow-logs",
                     role: flowLogsRole.id,
-                    policy: JSON.stringify(flowLogsPolicy),
+                    policy: flowLogsPolicy,
                 }, flowLogsRoleParent);
                 new aws.ec2.FlowLog(`${baseName}-flow-logs`, {
                     logGroupName: logGroup.name,
