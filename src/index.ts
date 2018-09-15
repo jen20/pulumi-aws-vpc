@@ -235,24 +235,15 @@ export class Vpc extends ComponentResource implements VpcOutputs {
                 tags: logGroupTags,
             }, vpcParent);
 
-            const assumeRolePolicy = {
-                Version: "2012-10-17",
-                Statement: [
-                    {
-                        Effect: "Allow",
-                        Principal: {Service: "vpc-flow-logs.amazonaws.com"},
-                        Action: "sts:AssumeRole",
-                    },
-                ],
-            };
-
             const flowLogsRole = new aws.iam.Role(`${baseName}-flow-logs-role`, {
                 description: `${inputs.description} Flow Logs`,
-                assumeRolePolicy: JSON.stringify(assumeRolePolicy),
+                assumeRolePolicy: JSON.stringify(aws.iam.assumeRolePolicyForPrincipal({
+                    Service: "vpc-flow-logs.amazonaws.com"
+                })),
             }, vpcParent);
             const flowLogsRoleParent = {parent: flowLogsRole};
 
-            const flowLogsPolicy = {
+            const flowLogsPolicy: aws.iam.PolicyDocument = {
                 Version: "2012-10-17",
                 Statement: [
                     {
@@ -272,7 +263,7 @@ export class Vpc extends ComponentResource implements VpcOutputs {
             new aws.iam.RolePolicy(`${baseName}-flow-log-policy`, {
                 name: "vpc-flow-logs",
                 role: flowLogsRole.id,
-                policy: JSON.stringify(flowLogsPolicy),
+                policy: flowLogsPolicy,
             }, flowLogsRoleParent);
 
             new aws.ec2.FlowLog(`${baseName}-flow-logs`, {
