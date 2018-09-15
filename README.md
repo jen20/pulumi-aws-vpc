@@ -58,11 +58,7 @@ async function main(): Promise<VpcOutputs> {
     });
 }
 
-const outputs = main();
-export const vpcId = outputs.then(o => o.vpcId);
-export const privateSubnetIds = outputs.then(o => o.privateSubnetIds);
-export const publicSubnetIds = outputs.then(o => o.publicSubnetIds);
-export const privateHostedZoneId = outputs.then(o => o.privateHostedZoneId);
+module.exports = main();
 ```
 
 Running a [`pulumi preview`][pulumipreview] of the above program in the `us-west-2` region results in the following:
