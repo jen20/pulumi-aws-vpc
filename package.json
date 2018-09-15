@@ -1,6 +1,6 @@
 {
   "name": "@operator-error/pulumi-aws-vpc",
-  "version": "1.3.0-dev",
+  "version": "1.3.0",
   "description": "Good-Practice AWS VPC Component for Pulumi",
   "author": "James Nugent",
   "license": "MPL-2.0",
