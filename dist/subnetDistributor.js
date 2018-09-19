@@ -15,7 +15,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const aws = require("@pulumi/aws");
+// import * as aws from "@pulumi/aws";
 const cidr = require("./cidr");
 /**
  * A SubnetDistributor is used to split a given CIDR block into a number of
@@ -31,6 +31,7 @@ class SubnetDistributor {
      */
     static perAz(baseCidr) {
         return __awaiter(this, void 0, void 0, function* () {
+            const aws = yield Promise.resolve().then(() => require("@pulumi/aws"));
             const azCount = (yield aws.getAvailabilityZones({
                 state: "available",
             })).names.length;

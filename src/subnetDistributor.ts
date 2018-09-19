@@ -6,7 +6,7 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
-import * as aws from "@pulumi/aws";
+// import * as aws from "@pulumi/aws";
 import * as cidr from "./cidr";
 
 /**
@@ -25,6 +25,7 @@ export class SubnetDistributor {
      * @returns {Promise<SubnetDistributor>} A SubnetDistributor instance.
      */
     public static async perAz(baseCidr: string): Promise<SubnetDistributor> {
+        const aws = await import("@pulumi/aws");
         const azCount = (await aws.getAvailabilityZones({
             state: "available",
         })).names.length;

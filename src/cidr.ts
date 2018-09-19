@@ -10,6 +10,10 @@ export function subnetV4(ipRange: string, newBits: number, netNum: number): stri
     const ipAddress = require("ip-address");
     const BigInteger = require("jsbn").BigInteger;
 
+    if (!ipRange.includes('/')) {
+        throw new Error("Subnet mask required. Did you add a '/' after the IP address?  for example: '10.0.0.0/16'");
+    }
+
     const ipv4 = new ipAddress.Address4(ipRange);
     if (!ipv4.isValid()) {
         throw new Error(`Invalid IP address range: ${ipRange}`);
