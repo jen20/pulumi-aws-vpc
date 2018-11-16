@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project
 adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [1.4.0] - 2018-11-16
+### Changed
+
+- Various internal fixes were made to remove warnings when used with version 0.16.2 of the AWS
+  provider, which is now the minimum required version. [#9]
 
 ## [1.3.0] - 2018-09-15
 ### Changed
