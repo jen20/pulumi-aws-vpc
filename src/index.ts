@@ -59,7 +59,9 @@ export class Vpc extends ComponentResource implements VpcOutputs {
         // Private Hosted Zone
         if (inputs.zoneName) {
             const privateZone = new aws.route53.Zone(`${baseName}-private-hosted-zone`, {
-                vpcId: vpc.id,
+                vpcs: [{
+                    vpcId: vpc.id,
+                }],
                 name: inputs.zoneName,
                 comment: `Private zone for ${inputs.zoneName}. Managed by Pulumi.`,
             }, vpcParent);
@@ -99,7 +101,7 @@ export class Vpc extends ComponentResource implements VpcOutputs {
         }
 
         // Find AZ names
-        let azNames = (await aws.getAvailabilityZones({
+        const azNames = (await aws.getAvailabilityZones({
             state: "available",
         })).names;
 
@@ -238,7 +240,7 @@ export class Vpc extends ComponentResource implements VpcOutputs {
             const flowLogsRole = new aws.iam.Role(`${baseName}-flow-logs-role`, {
                 description: `${inputs.description} Flow Logs`,
                 assumeRolePolicy: JSON.stringify(aws.iam.assumeRolePolicyForPrincipal({
-                    Service: "vpc-flow-logs.amazonaws.com"
+                    Service: "vpc-flow-logs.amazonaws.com",
                 })),
             }, vpcParent);
             const flowLogsRoleParent = {parent: flowLogsRole};
@@ -267,7 +269,7 @@ export class Vpc extends ComponentResource implements VpcOutputs {
             }, flowLogsRoleParent);
 
             new aws.ec2.FlowLog(`${baseName}-flow-logs`, {
-                logGroupName: logGroup.name,
+                logDestination: logGroup.arn,
                 iamRoleArn: flowLogsRole.arn,
                 vpcId: vpc.id,
                 trafficType: "ALL",
