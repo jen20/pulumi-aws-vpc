@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@pulumi/aws": "^0.16.2",
-    "@pulumi/pulumi": "^0.15.2",
+    "@pulumi/pulumi": "^0.16.0",
     "ip-address": "^5.8.9",
     "jsbn": "^1.1.0"
   }
