@@ -15,7 +15,8 @@
 		"strictNullChecks": true
 	},
 	"files": [
-		"src/index.ts"
+      "src/index.ts",
+      "src/subnetDistributor.ts"
 	]
 }
 
