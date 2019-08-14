@@ -4,7 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project
 adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## Unreleased (Target: [2.0.0] - 2019-06-13)
+
+*NOTE:* Version 2.0.0 introduces a major rearchitecture of the VPC component. There are numerous 
+breaking changes here, so if you are using version 1.0.0 of the component, it might be worthwhile 
+to pin the dependency version to the 1.x range, rather than upgrading.
+
+### Changed
+
+- A Python version of the component, functionally identical to the Node.js version has been added.
+- In Node.js, `Vpc` is now created using a constructor instead of an async factory method.
+- In Node.js, `Vpc` no longer queries for availability zone names. Instead, if you want to create
+  a subnet for every availability zone, use the [`aws.getAvailabilityZones`][getazs] function
+  prior to calling the constructor, and pass in the array of availability zone names as an
+  argument.
+- In Node.js, `Vpc` has a different Pulumi URN - the type specified is `jen20:aws:vpc` instead of
+  `operator-error:aws:vpc`.
+- In Node.js, VPC flow logging is now enabled by calling the `enableFlowLoggingToCloudWatchLogs`
+  method on a constructed VPC. This API allows expansion to cover flow logging to S3 in future.
 
 ## [1.4.0] - 2018-11-16
 ### Changed
