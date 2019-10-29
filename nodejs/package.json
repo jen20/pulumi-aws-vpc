@@ -1,6 +1,6 @@
 {
   "name": "@jen20/pulumi-aws-vpc",
-  "version": "2.0.0-rc1",
+  "version": "2.0.0",
   "description": "Good-Practice AWS VPC Component for Pulumi",
   "author": "James Nugent",
   "license": "MPL-2.0",
