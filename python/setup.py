@@ -14,7 +14,7 @@ def readme():
 
 setup(
     name='jen20_pulumi_aws_vpc',
-    version='2.0.0rc2',
+    version='2.0.0',
     packages=find_packages(exclude=['tests']),
     url='https://github.com/jen20/pulumi-aws-vpc-python',
     license='MPLv2',
@@ -22,6 +22,7 @@ setup(
     author_email='github@jen20.com',
     description='A good-practice AWS VPC written in Python for Pulumi',
     long_description=readme(),
+    long_description_content_type='text/markdown',
     install_requires=[
         'pulumi>=1.4.0,<2.0.0',
         'pulumi_aws>=1.7.0,<2.0.0',
