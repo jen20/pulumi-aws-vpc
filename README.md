@@ -37,7 +37,7 @@ $ pip3 install 'jen20_pulumi_aws_vpc'
 
 An example of the usage in a Pulumi program of each component is available:
 
-- [Node.js example][example-node]
+- [Node.js][example-node]
 - [Python][example-python]
 
 ## License
