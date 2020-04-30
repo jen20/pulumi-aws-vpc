@@ -14,7 +14,7 @@ def readme():
 
 setup(
     name='jen20_pulumi_aws_vpc',
-    version='2.0.0',
+    version='2.1.0',
     packages=find_packages(exclude=['tests']),
     url='https://github.com/jen20/pulumi-aws-vpc-python',
     license='MPLv2',
@@ -24,8 +24,8 @@ setup(
     long_description=readme(),
     long_description_content_type='text/markdown',
     install_requires=[
-        'pulumi>=1.4.0,<2.0.0',
-        'pulumi_aws>=1.7.0,<2.0.0',
+        'pulumi>=2.1.0,<3.0.0',
+        'pulumi_aws>=2.2.0,<3.0.0',
     ],
     zip_safe=True,
 )

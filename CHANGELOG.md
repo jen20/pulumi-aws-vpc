@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project
 adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased (Target: [2.0.0] - 2019-06-13)
+## Unreleased (Target: [2.1.0])
+
+### Changed
+
+- Both Node.js and Python components updated to work with Pulumi v2.0.0.
+- A Node.js example Pulumi program is now in `examples/nodejs`.
+- In Node.js, the deprecated `tslint` is no longer used. It is not currently replaced with `eslint`.
+
+## [2.0.0] - 2019-10-29
 
 *NOTE:* Version 2.0.0 introduces a major rearchitecture of the VPC component. There are numerous 
 breaking changes here, so if you are using version 1.0.0 of the component, it might be worthwhile 
