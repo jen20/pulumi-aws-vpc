@@ -154,7 +154,7 @@ class Vpc extends pulumi_1.ComponentResource {
     enableFlowLoggingToCloudWatchLogs(trafficType) {
         this.flowLogsRole = new aws.iam.Role(`${name}-flow-logs-role`, {
             description: `${this.description} VPC Flow Logs`,
-            assumeRolePolicy: aws.iam.assumeRolePolicyForPrincipal(aws.iam.VpcFlowLogsPrincipal),
+            assumeRolePolicy: aws.iam.assumeRolePolicyForPrincipal(aws.iam.Principals.VpcFlowLogsPrincipal),
         }, { parent: this.vpc });
         this.flowLogsGroup = new aws.cloudwatch.LogGroup(`${name}-vpc-flow-logs`, {
             tags: this.resourceTags({
