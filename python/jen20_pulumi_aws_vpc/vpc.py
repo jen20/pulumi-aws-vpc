@@ -163,7 +163,7 @@ class Vpc(pulumi.ComponentResource):
 
             self.nat_gateways.append(ec2.NatGateway(f"{name}-nat-gateway-{i + 1}",
                                                     allocation_id=self.nat_elastic_ip_addresses[i].id,
-                                                    subnet_id=subnet.id,
+                                                    subnet_id=self.public_subnets[i].id,
                                                     tags={**args.base_tags,
                                                           "Name": f"{args.description} NAT Gateway {i + 1}"},
                                                     opts=pulumi.ResourceOptions(
@@ -181,7 +181,7 @@ class Vpc(pulumi.ComponentResource):
             ec2.Route(f"{name}-route-private-sn-to-nat-{i + 1}",
                       route_table_id=self.private_route_tables[i].id,
                       destination_cidr_block="0.0.0.0/0",
-                      gateway_id=self.nat_gateways[i].id,
+                      nat_gateway_id=self.nat_gateways[i].id,
                       opts=pulumi.ResourceOptions(
                           parent=self.private_route_tables[i]
                       ))

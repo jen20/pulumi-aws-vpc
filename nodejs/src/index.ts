@@ -144,28 +144,29 @@ export class Vpc extends ComponentResource {
 
         // Create a NAT Gateway and appropriate route table for each private subnet
         for (let index = 0; index < this.privateSubnets.length; index++) {
-            const subnet = this.privateSubnets[index];
+            const privateSubnet = this.privateSubnets[index];
+            const publicSubnet = this.publicSubnets[index];
 
             this.natElasticIpAddresses.push(new aws.ec2.Eip(`${name}-nat-${index + 1}`, {
                 tags: this.resourceTags({
                     Name: `${args.description} NAT Gateway EIP ${index + 1}`,
                 }),
-            }, {parent: subnet}));
+            }, {parent: privateSubnet}));
 
             this.natGateways.push(new aws.ec2.NatGateway(`${name}-nat-gateway-${index + 1}`, {
                 allocationId: this.natElasticIpAddresses[index].id,
-                subnetId: subnet.id,
+                subnetId: publicSubnet.id,
                 tags: this.resourceTags({
                     Name: `${args.description} NAT Gateway ${index + 1}`,
                 }),
-            }, {parent: subnet}));
+            }, {parent: privateSubnet}));
 
             this.privateRouteTables.push(new aws.ec2.RouteTable(`${name}-private-rt-${index + 1}`, {
                 vpcId: this.vpc.id,
                 tags: this.resourceTags({
                     Name: `${args.description} Private Subnet RT ${index + 1}`,
                 }),
-            }, {parent: subnet}));
+            }, {parent: privateSubnet}));
 
             new aws.ec2.Route(`${name}-route-private-sn-to-nat-${index + 1}`, {
                 routeTableId: this.privateRouteTables[index].id,
@@ -174,7 +175,7 @@ export class Vpc extends ComponentResource {
             }, {parent: this.privateRouteTables[index]});
 
             new aws.ec2.RouteTableAssociation(`${name}-private-rta-${index + 1}`, {
-                subnetId: subnet.id,
+                subnetId: privateSubnet.id,
                 routeTableId: this.privateRouteTables[index].id,
             }, {parent: this.privateRouteTables[index]});
         }
