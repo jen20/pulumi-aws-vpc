@@ -55,4 +55,4 @@ Please feel free to open issues or pull requests on GitHub!
 [mpl2]: https://www.mozilla.org/en-US/MPL/2.0/
 [changelog]: https://github.com/jen20/pulumi-aws-vpc/blob/master/CHANGELOG.md
 [example-node]: https://github.com/jen20/pulumi-aws-vpc/tree/master/examples/nodejs
-[example-node]: https://github.com/jen20/pulumi-aws-vpc/tree/master/examples/python
+[example-python]: https://github.com/jen20/pulumi-aws-vpc/tree/master/examples/python
