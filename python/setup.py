@@ -8,8 +8,12 @@ from setuptools import setup, find_packages
 
 
 def readme():
-    with open('../README.md') as f:
-        return f.read()
+    for filename in ('README.md', '../README.md'):
+        try:
+            with open('README.md') as f:
+                return f.read()
+        except IOError:
+            pass
 
 
 setup(
