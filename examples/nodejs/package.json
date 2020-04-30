@@ -1,0 +1,11 @@
+{
+    "name": "nodejs",
+    "devDependencies": {
+        "@types/node": "^13.13.4"
+    },
+    "dependencies": {
+        "@jen20/pulumi-aws-vpc": "file:../../nodejs",
+        "@pulumi/aws": "^2.2.0",
+        "@pulumi/pulumi": "^2.1.0"
+    }
+}

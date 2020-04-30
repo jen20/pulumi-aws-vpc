@@ -7,8 +7,8 @@
  */
 
 import * as aws from "@pulumi/aws";
-import { ComponentResource, ComponentResourceOptions, Input, Output } from "@pulumi/pulumi";
-import { SubnetDistributor } from "./subnetDistributor";
+import {ComponentResource, ComponentResourceOptions, Input, Output} from "@pulumi/pulumi";
+import {SubnetDistributor} from "./subnetDistributor";
 
 export interface VpcArgs {
     description: string;
@@ -39,13 +39,15 @@ export class Vpc extends ComponentResource {
     flowLogsGroup: aws.cloudwatch.LogGroup;
     flowLogsRole: aws.iam.Role;
 
-    private description: string;
-    private baseTags: { [k: string]: Input<string> };
+    private readonly name: string;
+    private readonly description: string;
+    private readonly baseTags: { [k: string]: Input<string> };
 
     constructor(name: string, args: VpcArgs, opts?: ComponentResourceOptions) {
         super("jen20:aws-vpc", name, {}, opts);
 
         // Make base info available to other methods.
+        this.name = name;
         this.description = args.description;
         this.baseTags = args.baseTags;
 
@@ -198,18 +200,18 @@ export class Vpc extends ComponentResource {
     }
 
     public enableFlowLoggingToCloudWatchLogs(trafficType: Input<"ALL" | "ACCEPT" | "REJECT">) {
-        this.flowLogsRole = new aws.iam.Role(`${name}-flow-logs-role`, {
+        this.flowLogsRole = new aws.iam.Role(`${this.name}-flow-logs-role`, {
             description: `${this.description} VPC Flow Logs`,
             assumeRolePolicy: aws.iam.assumeRolePolicyForPrincipal(aws.iam.Principals.VpcFlowLogsPrincipal),
         }, {parent: this.vpc});
 
-        this.flowLogsGroup = new aws.cloudwatch.LogGroup(`${name}-vpc-flow-logs`, {
+        this.flowLogsGroup = new aws.cloudwatch.LogGroup(`${this.name}-vpc-flow-logs`, {
             tags: this.resourceTags({
                 Name: `${this.description} VPC Flow Logs`,
             }),
         }, {parent: this.flowLogsRole});
 
-        new aws.iam.RolePolicy(`${name}-flow-log-policy`, {
+        new aws.iam.RolePolicy(`${this.name}-flow-log-policy`, {
             name: "vpc-flow-logs",
             role: this.flowLogsRole.id,
             policy: {
@@ -230,7 +232,7 @@ export class Vpc extends ComponentResource {
             },
         }, {parent: this.flowLogsRole});
 
-        new aws.ec2.FlowLog(`${name}-flow-logs`, {
+        new aws.ec2.FlowLog(`${this.name}-flow-logs`, {
             logDestination: this.flowLogsGroup.arn,
             iamRoleArn: this.flowLogsRole.arn,
             vpcId: this.vpc.id,
@@ -249,7 +251,6 @@ export class Vpc extends ComponentResource {
     public vpcId(): Output<string> {
         return this.vpc.id;
     }
-
 
     private resourceTags(additionalTags: { [k: string]: Input<string> }) {
         return Object.assign(additionalTags, this.baseTags);

@@ -9,6 +9,7 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - Both Node.js and Python components updated to work with Pulumi v2.0.0.
+- A Node.js example Pulumi program is now in `examples/nodejs`.
 - In Node.js, the deprecated `tslint` is no longer used. It is not currently replaced with `eslint`.
 
 ## [2.0.0] - 2019-10-29
