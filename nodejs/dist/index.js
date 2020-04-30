@@ -19,6 +19,7 @@ class Vpc extends pulumi_1.ComponentResource {
         this.natGateways = [];
         this.natElasticIpAddresses = [];
         // Make base info available to other methods.
+        this.name = name;
         this.description = args.description;
         this.baseTags = args.baseTags;
         // VPC
@@ -152,16 +153,16 @@ class Vpc extends pulumi_1.ComponentResource {
         this.registerOutputs({});
     }
     enableFlowLoggingToCloudWatchLogs(trafficType) {
-        this.flowLogsRole = new aws.iam.Role(`${name}-flow-logs-role`, {
+        this.flowLogsRole = new aws.iam.Role(`${this.name}-flow-logs-role`, {
             description: `${this.description} VPC Flow Logs`,
             assumeRolePolicy: aws.iam.assumeRolePolicyForPrincipal(aws.iam.Principals.VpcFlowLogsPrincipal),
         }, { parent: this.vpc });
-        this.flowLogsGroup = new aws.cloudwatch.LogGroup(`${name}-vpc-flow-logs`, {
+        this.flowLogsGroup = new aws.cloudwatch.LogGroup(`${this.name}-vpc-flow-logs`, {
             tags: this.resourceTags({
                 Name: `${this.description} VPC Flow Logs`,
             }),
         }, { parent: this.flowLogsRole });
-        new aws.iam.RolePolicy(`${name}-flow-log-policy`, {
+        new aws.iam.RolePolicy(`${this.name}-flow-log-policy`, {
             name: "vpc-flow-logs",
             role: this.flowLogsRole.id,
             policy: {
@@ -181,7 +182,7 @@ class Vpc extends pulumi_1.ComponentResource {
                 ],
             },
         }, { parent: this.flowLogsRole });
-        new aws.ec2.FlowLog(`${name}-flow-logs`, {
+        new aws.ec2.FlowLog(`${this.name}-flow-logs`, {
             logDestination: this.flowLogsGroup.arn,
             iamRoleArn: this.flowLogsRole.arn,
             vpcId: this.vpc.id,

@@ -12,7 +12,7 @@ article [Practical VPC Design][practicalvpcdesign]. VPC Endpoints for S3 and Dyn
 flow logging can be enabled if desired.
 
 The `Vpc` component is implemented in both Node.js (using TypeScript) and Python 3, with identical functionality and a
-very similar API between the two languages.
+very similar API between the two languages. Both support Pulumi v2.1.0 and above.
 
 This package does not currently support entirely private VPCs (i.e. those without an internet gateway attached), though
 it is intended to support such designs in future.
@@ -33,6 +33,10 @@ $ npm install --save '@jen20/pulumi-aws-vpc'
 $ pip3 install 'jen20_pulumi_aws_vpc'
 ```
 
+## Examples
+
+- A [Node.js example][example-node] demonstrating usage of the `Vpc` component in a Pulumi program is available.
+
 ## License
 
 This package is licensed under the [Mozilla Public License, v2.0][mpl2].
@@ -47,3 +51,4 @@ Please feel free to open issues or pull requests on GitHub!
 [pulumipreview]: https://pulumi.io/reference/cli/pulumi_preview.html
 [mpl2]: https://www.mozilla.org/en-US/MPL/2.0/
 [changelog]: https://github.com/jen20/pulumi-aws-vpc/blob/master/CHANGELOG.md
+[example-node]: https://github.com/jen20/pulumi-aws-vpc/tree/master/examples/nodejs

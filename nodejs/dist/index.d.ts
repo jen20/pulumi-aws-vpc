@@ -24,8 +24,9 @@ export declare class Vpc extends ComponentResource {
     natElasticIpAddresses: aws.ec2.Eip[];
     flowLogsGroup: aws.cloudwatch.LogGroup;
     flowLogsRole: aws.iam.Role;
-    private description;
-    private baseTags;
+    private readonly name;
+    private readonly description;
+    private readonly baseTags;
     constructor(name: string, args: VpcArgs, opts?: ComponentResourceOptions);
     enableFlowLoggingToCloudWatchLogs(trafficType: Input<"ALL" | "ACCEPT" | "REJECT">): void;
     privateSubnetIds(): Output<string>[];
