@@ -6,6 +6,8 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased (Target: [2.1.0])
 
+## [2.1.0] - 2020-04-29
+
 ### Changed
 
 - Both Node.js and Python components updated to work with Pulumi v2.0.0.
