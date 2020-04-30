@@ -6,6 +6,8 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased (Target: [2.1.0])
 
+- In Python, local relative path installation now works correctly, as does installing from Pypi.
+
 ## [2.1.0] - 2020-04-29
 
 ### Changed
