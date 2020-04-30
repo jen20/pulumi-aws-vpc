@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project
 adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased (Target: [2.1.0])
+## Unreleased (Target: [3.0.0])
+
+## [2.2.0] - 2020-04-29
+
+### Fixed
 
 - In Python, local relative path installation now works correctly, as does installing from Pypi.
+- In Node.js and Python, NAT Gateways are created in the correct subnets.
 
 ## [2.1.0] - 2020-04-29
 
