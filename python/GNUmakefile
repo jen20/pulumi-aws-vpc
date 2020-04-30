@@ -32,9 +32,9 @@ lint:
 .PHONY: dist
 dist:
 	$(call START_TARGET)
-	$(call START_TASK,Copying and transforming README.md and license...)
+	$(call START_TASK,Copying README.md and license...)
 	cp $(MAKEFILE_ROOT)/../LICENSE $(MAKEFILE_ROOT)
-	pandoc -s -o $(MAKEFILE_ROOT)/README.rst $(MAKEFILE_ROOT)/../README.md
+	cp $(MAKEFILE_ROOT)/../README.md $(MAKEFILE_ROOT)
 	$(call START_TASK,Building source distribution for Python package...)
 	mkdir -p $(ARTIFACT_OUT_DIR)
 	pipenv run python $(MAKEFILE_ROOT)/setup.py sdist \
