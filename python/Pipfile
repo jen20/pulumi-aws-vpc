@@ -8,8 +8,8 @@ twine = "*"
 pylint = "*"
 
 [packages]
-pulumi = ">=1.4.0,<2.0.0"
-pulumi-aws = ">=1.7.0,<2.0.0"
+pulumi = ">=2.1.0,<3.0.0"
+pulumi-aws = ">=2.2.0,<3.0.0"
 
 [requires]
 python_version = "3.7"
