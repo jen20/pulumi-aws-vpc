@@ -18,7 +18,7 @@ def readme():
 
 setup(
     name='jen20_pulumi_aws_vpc',
-    version='2.1.0',
+    version='2.2.0',
     packages=find_packages(exclude=['tests']),
     url='https://github.com/jen20/pulumi-aws-vpc-python',
     license='MPLv2',
