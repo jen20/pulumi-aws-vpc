@@ -35,7 +35,10 @@ $ pip3 install 'jen20_pulumi_aws_vpc'
 
 ## Examples
 
-- A [Node.js example][example-node] demonstrating usage of the `Vpc` component in a Pulumi program is available.
+An example of the usage in a Pulumi program of each component is available:
+
+- [Node.js example][example-node]
+- [Python][example-python]
 
 ## License
 
@@ -52,3 +55,4 @@ Please feel free to open issues or pull requests on GitHub!
 [mpl2]: https://www.mozilla.org/en-US/MPL/2.0/
 [changelog]: https://github.com/jen20/pulumi-aws-vpc/blob/master/CHANGELOG.md
 [example-node]: https://github.com/jen20/pulumi-aws-vpc/tree/master/examples/nodejs
+[example-node]: https://github.com/jen20/pulumi-aws-vpc/tree/master/examples/python
