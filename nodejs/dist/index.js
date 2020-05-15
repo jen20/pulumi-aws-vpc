@@ -129,7 +129,7 @@ class Vpc extends pulumi_1.ComponentResource {
             new aws.ec2.Route(`${name}-route-private-sn-to-nat-${index + 1}`, {
                 routeTableId: this.privateRouteTables[index].id,
                 destinationCidrBlock: "0.0.0.0/0",
-                gatewayId: this.natGateways[index].id,
+                natGatewayId: this.natGateways[index].id,
             }, { parent: this.privateRouteTables[index] });
             new aws.ec2.RouteTableAssociation(`${name}-private-rta-${index + 1}`, {
                 subnetId: privateSubnet.id,
