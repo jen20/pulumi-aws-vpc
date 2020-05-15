@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project
 adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased (Target: [3.0.0])
+## [2.2.1] - 2020-05-14
+
+### Fixed
+
+- In Node.js, a perpetual diff is no longer produced for the route to a NAT Gateway in private subnets.
 
 ## [2.2.0] - 2020-04-29
 
