@@ -30,7 +30,8 @@ class VpcArgs:
                  availability_zone_names: pulumi.Input[Sequence[pulumi.Input[str]]],
                  zone_name: pulumi.Input[str] = "",
                  create_s3_endpoint: bool = True,
-                 create_dynamodb_endpoint: bool = True):
+                 create_dynamodb_endpoint: bool = True,
+                 enable_nat_gateway: bool = True):
         """
         Constructs a VpcArgs.
 
@@ -49,6 +50,7 @@ class VpcArgs:
         self.zone_name = zone_name
         self.create_s3_endpoint = create_s3_endpoint
         self.create_dynamodb_endpoint = create_dynamodb_endpoint
+        self.enable_nat_gateway = enable_nat_gateway
 
 
 class Vpc(pulumi.ComponentResource):
@@ -152,46 +154,47 @@ class Vpc(pulumi.ComponentResource):
         self.nat_gateways: [ec2.NatGateway] = list()
         self.private_route_tables: [ec2.RouteTable] = list()
 
-        # Create a NAT Gateway and appropriate route table for each private subnet
-        for i, subnet in enumerate(self.private_subnets):
-            self.nat_elastic_ip_addresses.append(ec2.Eip(f"{name}-nat-{i + 1}",
-                                                         tags={**args.base_tags,
-                                                               "Name": f"{args.description} NAT Gateway EIP {i + 1}"},
-                                                         opts=pulumi.ResourceOptions(
-                                                             parent=subnet
-                                                         )))
+        if args.enable_nat_gateway:
+            # Create a NAT Gateway and appropriate route table for each private subnet
+            for i, subnet in enumerate(self.private_subnets):
+                self.nat_elastic_ip_addresses.append(ec2.Eip(f"{name}-nat-{i + 1}",
+                                                             tags={**args.base_tags,
+                                                                   "Name": f"{args.description} NAT Gateway EIP {i + 1}"},
+                                                             opts=pulumi.ResourceOptions(
+                                                                 parent=subnet
+                                                             )))
 
-            self.nat_gateways.append(ec2.NatGateway(f"{name}-nat-gateway-{i + 1}",
-                                                    allocation_id=self.nat_elastic_ip_addresses[i].id,
-                                                    subnet_id=self.public_subnets[i].id,
-                                                    tags={**args.base_tags,
-                                                          "Name": f"{args.description} NAT Gateway {i + 1}"},
-                                                    opts=pulumi.ResourceOptions(
-                                                        parent=subnet
-                                                    )))
+                self.nat_gateways.append(ec2.NatGateway(f"{name}-nat-gateway-{i + 1}",
+                                                        allocation_id=self.nat_elastic_ip_addresses[i].id,
+                                                        subnet_id=self.public_subnets[i].id,
+                                                        tags={**args.base_tags,
+                                                              "Name": f"{args.description} NAT Gateway {i + 1}"},
+                                                        opts=pulumi.ResourceOptions(
+                                                            parent=subnet
+                                                        )))
 
-            self.private_route_tables.append(ec2.RouteTable(f"{name}-private-rt-{i + 1}",
-                                                            vpc_id=self.vpc.id,
-                                                            tags={**args.base_tags,
-                                                                  "Name": f"{args.description} Private RT {i + 1}"},
-                                                            opts=pulumi.ResourceOptions(
-                                                                parent=subnet
-                                                            )))
+                self.private_route_tables.append(ec2.RouteTable(f"{name}-private-rt-{i + 1}",
+                                                                vpc_id=self.vpc.id,
+                                                                tags={**args.base_tags,
+                                                                      "Name": f"{args.description} Private RT {i + 1}"},
+                                                                opts=pulumi.ResourceOptions(
+                                                                    parent=subnet
+                                                                )))
 
-            ec2.Route(f"{name}-route-private-sn-to-nat-{i + 1}",
-                      route_table_id=self.private_route_tables[i].id,
-                      destination_cidr_block="0.0.0.0/0",
-                      nat_gateway_id=self.nat_gateways[i].id,
-                      opts=pulumi.ResourceOptions(
-                          parent=self.private_route_tables[i]
-                      ))
+                ec2.Route(f"{name}-route-private-sn-to-nat-{i + 1}",
+                          route_table_id=self.private_route_tables[i].id,
+                          destination_cidr_block="0.0.0.0/0",
+                          nat_gateway_id=self.nat_gateways[i].id,
+                          opts=pulumi.ResourceOptions(
+                              parent=self.private_route_tables[i]
+                          ))
 
-            ec2.RouteTableAssociation(f"{name}-private-rta-{i + 1}",
-                                      subnet_id=subnet.id,
-                                      route_table_id=self.private_route_tables[i].id,
-                                      opts=pulumi.ResourceOptions(
-                                          parent=self.private_route_tables[i]
-                                      ))
+                ec2.RouteTableAssociation(f"{name}-private-rta-{i + 1}",
+                                          subnet_id=subnet.id,
+                                          route_table_id=self.private_route_tables[i].id,
+                                          opts=pulumi.ResourceOptions(
+                                              parent=self.private_route_tables[i]
+                                          ))
 
         # Create S3 endpoint if necessary
         if args.create_s3_endpoint:

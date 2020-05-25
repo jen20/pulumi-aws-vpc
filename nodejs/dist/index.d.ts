@@ -1,6 +1,7 @@
 import * as aws from "@pulumi/aws";
 import { ComponentResource, ComponentResourceOptions, Input, Output } from "@pulumi/pulumi";
 export interface VpcArgs {
+    enableNatGateway: boolean;
     description: string;
     baseTags: aws.Tags;
     baseCidr: string;
@@ -24,6 +25,7 @@ export declare class Vpc extends ComponentResource {
     natElasticIpAddresses: aws.ec2.Eip[];
     flowLogsGroup: aws.cloudwatch.LogGroup;
     flowLogsRole: aws.iam.Role;
+    enableNatGateway: boolean;
     private readonly name;
     private readonly description;
     private readonly baseTags;
