@@ -203,9 +203,6 @@ class Vpc extends pulumi_1.ComponentResource {
     vpcId() {
         return this.vpc.id;
     }
-    privateRouteTableIds() {
-        return this.privateRouteTables.map(x => x.id);
-    }
     resourceTags(additionalTags) {
         return Object.assign(additionalTags, this.baseTags);
     }

@@ -259,10 +259,6 @@ export class Vpc extends ComponentResource {
         return this.vpc.id;
     }
 
-    public privateRouteTableIds(): Output<string>[] {
-        return this.privateRouteTables.map(x => x.id);
-    }
-
     private resourceTags(additionalTags: { [k: string]: Input<string> }) {
         return Object.assign(additionalTags, this.baseTags);
     }

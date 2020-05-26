@@ -34,6 +34,5 @@ export declare class Vpc extends ComponentResource {
     privateSubnetIds(): Output<string>[];
     publicSubnetIds(): Output<string>[];
     vpcId(): Output<string>;
-    privateRouteTableIds(): Output<string>[];
     private resourceTags;
 }
