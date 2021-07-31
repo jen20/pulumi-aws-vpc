@@ -107,7 +107,7 @@ class Vpc(pulumi.ComponentResource):
                                           cidr_block=cidr,
                                           availability_zone=args.availability_zone_names[i],
                                           map_public_ip_on_launch=True,
-                                          tags={**args.base_tags, "Name": f"${args.description} Public Subnet {i}"},
+                                          tags={**args.base_tags, "Name": f"{args.description} Public Subnet {i}"},
                                           opts=pulumi.ResourceOptions(
                                               parent=self.vpc,
                                           ))
@@ -117,7 +117,7 @@ class Vpc(pulumi.ComponentResource):
                                            vpc_id=self.vpc.id,
                                            cidr_block=cidr,
                                            availability_zone=args.availability_zone_names[i],
-                                           tags={**args.base_tags, "Name": f"${args.description} Private Subnet {i}"},
+                                           tags={**args.base_tags, "Name": f"{args.description} Private Subnet {i}"},
                                            opts=pulumi.ResourceOptions(
                                                parent=self.vpc,
                                            ))
@@ -127,7 +127,7 @@ class Vpc(pulumi.ComponentResource):
         self.public_route_table = ec2.DefaultRouteTable(f"{name}-public-rt",
                                                         default_route_table_id=self.vpc.default_route_table_id,
                                                         tags={**args.base_tags,
-                                                              "Name": f"${args.description} Public Route Table"},
+                                                              "Name": f"{args.description} Public Route Table"},
                                                         opts=pulumi.ResourceOptions(
                                                             parent=self.vpc,
                                                         ))
