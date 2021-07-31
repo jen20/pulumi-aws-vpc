@@ -28,7 +28,7 @@ setup(
     long_description=readme(),
     long_description_content_type='text/markdown',
     install_requires=[
-        'pulumi>=2.1.0,<3.0.0',
+        'pulumi>=2.1.0,<4.0.0',
         'pulumi_aws>=2.2.0,<3.0.0',
     ],
     zip_safe=True,
